@@ -1,0 +1,15 @@
+name: 'Portainer Action'
+description: 'Action for interacting with Portainer'
+inputs:
+  username:
+    description: 'Portainer username'
+    required: true
+  password:
+    description: 'Portainer password'
+    required: true
+  baseUrl:
+    description: 'Portainer baseUrl'
+    required: true
+runs:
+  using: 'node12'
+  main: 'index.js'
