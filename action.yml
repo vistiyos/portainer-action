@@ -10,6 +10,12 @@ inputs:
   baseUrl:
     description: 'Portainer baseUrl'
     required: true
+  endpoint:
+    description: 'Endpoint ID'
+    required: true
+  dockerImage:
+    description: 'Docker image to be deploy'
+    required: true
 runs:
   using: 'node12'
   main: 'index.js'

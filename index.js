@@ -4,8 +4,10 @@ const axios = require('axios');
 async function run() {
     try {
 
+        const endpoint = core.getInput('endpoint');
+
         const client = axios.create({
-            baseURL: core.getInput('baseUrl')
+            baseURL: `${core.getInput('baseUrl')}/api`
         });
 
         const response = await client.post('/auth', {
@@ -13,7 +15,17 @@ async function run() {
             Password: core.getInput('password')
         });
 
-        core.debug(JSON.stringify(response));
+        const token = response.data.jwt;
+
+        await client.post(`/endpoints/${endpoint}/docker/containers/create`, {
+            Image: core.getInput('dockerImage')
+        }, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        core.debug(token);
     } catch (error) {
         core.setFailed(error.message);
     }
